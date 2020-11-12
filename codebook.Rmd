@@ -1,0 +1,63 @@
+Code in the file named "run_analysis.R".
+
+
+1. Downloading the data
+
+Location: Folder -> UCI HAR Dataset
+
+
+2. Assigning  data to variables
+
+ActivityTrain <- train/Y_train.txt: 7,352 obs of 1 var.
+ActivityTest  <- test/Y_test.txt: 2,947 obs of 1 var.
+
+SubjectTrain <- train/subject_train.txt: 7,352 obs of 1 var.
+SubjectTest  <- test/subject_test.txt: 2,947 obs of 1 var.
+
+FeaturesTrain <- train/X_train.txt: 7,352 obs of 561 var.
+FeaturesTest  <- test/X_test.txt: 2,947 obs of 561 var.
+
+FeaturesNames <- features.txt: 561 obs of 2 var.
+activityLabels <- activity_labels.txt: 6 obs of 2 var.
+
+
+3. Merges the training and the test sets to create one data set
+
+subject (10，299 obs of 1 var), activity (10，299 obs of 1 var) and features (10，299 obs of 561 var) are created by corresponding train and test data, using rbind() function.
+Data (10，299 obs of 563 var) is created by merging features, activity and subject using cbind() function.
+
+
+4. Extracts only the measurements on the mean and standard deviation for each measurement
+
+extractedData (10,299 obs of 88 var) is created by subsetting Data, selecting only columns with "mean" or "std" (standard deviation) in it, as long as "Activity" and "Subject".
+
+
+5. Uses descriptive activity names to name the activities in the data set
+
+Replace numbers in "Activity" column with corresponding activity labels below.
+
+  V1                 V2
+1  1            WALKING
+2  2   WALKING_UPSTAIRS
+3  3 WALKING_DOWNSTAIRS
+4  4            SITTING
+5  5           STANDING
+6  6             LAYING
+
+
+6. Appropriately labels the data set with descriptive variable names
+
+I personally not recomment this step since using descriptive varible names would be too long.
+
+# Acc can be replaced with Accelerometer
+# Gyro can be replaced with Gyroscope
+# BodyBody can be replaced with Body
+# Mag can be replaced with Magnitude
+# Character f can be replaced with Frequency
+# Character t can be replaced with Time
+
+
+7. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject
+
+tidyData (180 obs of 88 var) is created by sumarizing extractedData taking the means of each variable for each activity and each subject, after groupped by subject and activity.
+
